@@ -13,8 +13,8 @@ set_property -dict {PACKAGE_PIN BE24 IOSTANDARD LVCMOS18} [get_ports pcie_perstn
 # MGT
 set_property PACKAGE_PIN AL2 [get_ports {pcie_rxp[0]}]
 set_property PACKAGE_PIN AL1 [get_ports {pcie_rxn[0]}]
-set_property PACKAGE_PIN Y5 [get_ports {pcie_txp[0]}]
-set_property PACKAGE_PIN Y4 [get_ports {pcie_txn[0]}]
+set_property PACKAGE_PIN  Y5 [get_ports {pcie_txp[0]}]
+set_property PACKAGE_PIN  Y4 [get_ports {pcie_txn[0]}]
 set_property PACKAGE_PIN AM4 [get_ports {pcie_rxp[1]}]
 set_property PACKAGE_PIN AM3 [get_ports {pcie_rxn[1]}]
 set_property PACKAGE_PIN AA7 [get_ports {pcie_txp[1]}]
@@ -83,12 +83,12 @@ set_property IOSTANDARD LVCMOS18 [get_ports {pcie_clkreq[0]}]
 ########### End PCIe ##################################
 
 ########### System Clock ##############################
-#set_property PACKAGE_PIN BC26 [get_ports {hbm_ref_clk_p[0]}]
-#set_property PACKAGE_PIN BC27 [get_ports {hbm_ref_clk_n[0]}]
-#set_property IOSTANDARD LVDS [get_ports {hbm_ref_clk_n[0]}]
-#set_property IOSTANDARD LVDS [get_ports {hbm_ref_clk_p[0]}]
-#set_property DIFF_TERM_ADV TERM_100 [get_ports {hbm_ref_clk_p[0]}]
-#set_property DIFF_TERM_ADV TERM_100 [get_ports {hbm_ref_clk_n[0]}]
+set_property PACKAGE_PIN BC26 [get_ports {sysref_clk_p[0]}]
+set_property PACKAGE_PIN BC27 [get_ports {sysref_clk_n[0]}]
+set_property IOSTANDARD LVDS [get_ports {sysref_clk_p[0]}]
+set_property IOSTANDARD LVDS [get_ports {sysref_clk_n[0]}]
+set_property DIFF_TERM_ADV TERM_100 [get_ports {sysref_clk_p[0]}]
+set_property DIFF_TERM_ADV TERM_100 [get_ports {sysref_clk_n[0]}]
 
 # DQS_BIAS only supported by DIFF_SSTL18
 #set_property DQS_BIAS TRUE [get_ports hbm_ref_clk_p]
@@ -101,37 +101,18 @@ set_property IOSTANDARD LVCMOS18 [get_ports {pcie_clkreq[0]}]
 ########### End System Clock ##########################
 
 ############ LEDs ##################################
-#set_property PACKAGE_PIN BD25 [get_ports LED_A]
-#set_property PACKAGE_PIN BE26 [get_ports LED_B]
-#set_property PACKAGE_PIN BD23 [get_ports LED_C]
-#set_property PACKAGE_PIN BF26 [get_ports LED_D]
-#set_property PACKAGE_PIN BC25 [get_ports LED_RGB_R]
-#set_property PACKAGE_PIN BB26 [get_ports LED_RGB_G]
-#set_property PACKAGE_PIN BB25 [get_ports LED_RGB_B]
-set_property -dict {PACKAGE_PIN BD25 IOSTANDARD LVCMOS18} [get_ports {led[0]}]
-set_property -dict {PACKAGE_PIN BE26 IOSTANDARD LVCMOS18} [get_ports {led[1]}]
-set_property -dict {PACKAGE_PIN BD23 IOSTANDARD LVCMOS18} [get_ports {led[2]}]
-set_property -dict {PACKAGE_PIN BF26 IOSTANDARD LVCMOS18} [get_ports {led[3]}]
-set_property -dict {PACKAGE_PIN BC25 IOSTANDARD LVCMOS18} [get_ports {led[4]}]
-set_property -dict {PACKAGE_PIN BB26 IOSTANDARD LVCMOS18} [get_ports {led[5]}]
-set_property -dict {PACKAGE_PIN BB25 IOSTANDARD LVCMOS18} [get_ports {led[6]}]
+set_property -dict {PACKAGE_PIN BD25 IOSTANDARD LVCMOS18} [get_ports led[0]] ;##GREEN LED_A
+set_property -dict {PACKAGE_PIN BE26 IOSTANDARD LVCMOS18} [get_ports led[1]] ;##GREEN LED_A
+set_property -dict {PACKAGE_PIN BD23 IOSTANDARD LVCMOS18} [get_ports led[2]] ;##GREEN LED_A
+set_property -dict {PACKAGE_PIN BF26 IOSTANDARD LVCMOS18} [get_ports led[3]] ;##GREEN LED_A
+set_property -dict {PACKAGE_PIN BC25 IOSTANDARD LVCMOS18} [get_ports led[4]] ;##RGB LED_R
+set_property -dict {PACKAGE_PIN BB26 IOSTANDARD LVCMOS18} [get_ports led[5]] ;##RGB LED_G
+set_property -dict {PACKAGE_PIN BB25 IOSTANDARD LVCMOS18} [get_ports led[6]] ;##RGB LED_B
 
 ############# I2C-local (to PMIC) ##################
 set_property -dict {PACKAGE_PIN BB24 IOSTANDARD LVCMOS18} [get_ports iic_scl_io]
 set_property -dict {PACKAGE_PIN BA24 IOSTANDARD LVCMOS18} [get_ports iic_sda_io]
 
-###############################################################################
-# Waivers & FalsePaths
-###############################################################################
-create_waiver -type CDC -id {CDC-1} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_apb_arbiter_1/apb_mux_sel_r_reg[0]/C}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/CE] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
-create_waiver -type CDC -id {CDC-1} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_apb_arbiter_1/apb_mux_sel_r_reg[0]/C}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/D] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
-create_waiver -type CDC -id {CDC-1} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/C] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_apb_arbiter_1/apb_mux_sel_r_reg*/*] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
-create_waiver -type CDC -id {CDC-4} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_hbm_temp_rd_1/temp_value_r_reg[*]/C}] -to [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_*/xsdb2adb_u0/hbm_temp_r_reg[*]/D}] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
-create_waiver -type CDC -id {CDC-13} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_0/xsdb2adb_u0/*/C] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_two_stack_intf/HBM_ONE_STACK_INTF<1>_INST/HBM_SNGLBLI_INTF_APB_INST/*] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
-create_waiver -type CDC -id {CDC-13} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_two_stack_intf/HBM_ONE_STACK_INTF<1>_INST/HBM_SNGLBLI_INTF_APB_INST/*] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/CE] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
-create_waiver -type CDC -id {CDC-13} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_two_stack_intf/HBM_ONE_STACK_INTF<1>_INST/HBM_SNGLBLI_INTF_APB_INST/*] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/D] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
-create_waiver -type CDC -id {CDC-14} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/C] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_two_stack_intf/HBM_ONE_STACK_INTF<1>_INST/HBM_SNGLBLI_INTF_APB_INST/*] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
-                                                                                                                      7
 ###############################################################################
 # Additional design / project settings
 ###############################################################################
@@ -145,18 +126,37 @@ set_property CONFIG_MODE SPIx4 [current_design]
 set_property BITSTREAM.CONFIG.SPI_FALL_EDGE YES [current_design]
 set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
 
-set_property C_CLK_INPUT_FREQ_HZ 100000000 [get_debug_cores dbg_hub]
-set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
-set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
-connect_debug_port dbg_hub/clk [get_nets bd_i/hbm/inst/TWO_STACK.u_hbm_top/APB_0_PCLK]
 
 ###############################################################################
 # PBlocks
 ###############################################################################
 create_pblock pblock_bd_i
 add_cells_to_pblock [get_pblocks pblock_bd_i] [get_cells -quiet [list bd_i]]
-resize_pblock [get_pblocks pblock_bd_i] -add {SLICE_X0Y0:SLICE_X232Y50}
-resize_pblock [get_pblocks pblock_bd_i] -add {DSP48E2_X0Y0:DSP48E2_X31Y13}
-resize_pblock [get_pblocks pblock_bd_i] -add {RAMB18_X0Y0:RAMB18_X13Y19}
-resize_pblock [get_pblocks pblock_bd_i] -add {RAMB36_X0Y0:RAMB36_X13Y9}
+resize_pblock [get_pblocks pblock_bd_i] -add {SLICE_X219Y0:SLICE_X232Y239 SLICE_X0Y0:SLICE_X218Y50}
+resize_pblock [get_pblocks pblock_bd_i] -add {DSP48E2_X31Y0:DSP48E2_X31Y89 DSP48E2_X0Y0:DSP48E2_X30Y13}
+resize_pblock [get_pblocks pblock_bd_i] -add {LAGUNA_X30Y0:LAGUNA_X31Y119}
+resize_pblock [get_pblocks pblock_bd_i] -add {RAMB18_X13Y0:RAMB18_X13Y95 RAMB18_X0Y0:RAMB18_X12Y19}
+resize_pblock [get_pblocks pblock_bd_i] -add {RAMB36_X13Y0:RAMB36_X13Y47 RAMB36_X0Y0:RAMB36_X12Y9}
 resize_pblock [get_pblocks pblock_bd_i] -add {URAM288_X0Y0:URAM288_X4Y11}
+#resize_pblock [get_pblocks pblock_bd_i] -add {SLICE_X0Y0:SLICE_X232Y50}
+#resize_pblock [get_pblocks pblock_bd_i] -add {DSP48E2_X0Y0:DSP48E2_X31Y13}
+#resize_pblock [get_pblocks pblock_bd_i] -add {RAMB18_X0Y0:RAMB18_X13Y19}
+#resize_pblock [get_pblocks pblock_bd_i] -add {RAMB36_X0Y0:RAMB36_X13Y9}
+#resize_pblock [get_pblocks pblock_bd_i] -add {URAM288_X0Y0:URAM288_X4Y11}
+
+
+###############################################################################
+# Waivers & FalsePaths
+###############################################################################
+create_waiver -type CDC -id {CDC-1} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_apb_arbiter_1/apb_mux_sel_r_reg[0]/C}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/CE] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
+create_waiver -type CDC -id {CDC-1} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_apb_arbiter_1/apb_mux_sel_r_reg[0]/C}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/D] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
+create_waiver -type CDC -id {CDC-1} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/C}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_apb_arbiter_1/apb_mux_sel_r_reg*/*] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
+create_waiver -type CDC -id {CDC-4} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_hbm_temp_rd_1/temp_value_r_reg[*]/C}] -to [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_*/xsdb2adb_u0/hbm_temp_r_reg[*]/D}] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
+create_waiver -type CDC -id {CDC-13} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_0/xsdb2adb_u0/*/C}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_two_stack_intf/HBM_ONE_STACK_INTF<1>_INST/HBM_SNGLBLI_INTF_APB_INST/*] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
+create_waiver -type CDC -id {CDC-13} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_two_stack_intf/HBM_ONE_STACK_INTF<1>_INST/HBM_SNGLBLI_INTF_APB_INST/*}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/CE] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
+create_waiver -type CDC -id {CDC-13} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_two_stack_intf/HBM_ONE_STACK_INTF<1>_INST/HBM_SNGLBLI_INTF_APB_INST/*}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/D] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
+create_waiver -type CDC -id {CDC-14} -user "Dima" -desc "This is a safe CDC in this design per review with team" -internal -from [get_pins {*/*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.u_xsdb_top_1/xsdb2adb_u0/*/C}] -to [get_pins */*/inst/TWO_STACK.u_hbm_top/TWO_STACK_HBM.hbm_two_stack_intf/HBM_ONE_STACK_INTF<1>_INST/HBM_SNGLBLI_INTF_APB_INST/*] -timestamp "Wed Aug 14 14:20:19 GMT 2019"
+set_property C_CLK_INPUT_FREQ_HZ 100000000 [get_debug_cores dbg_hub]
+set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
+set_property C_USER_SCAN_CHAIN 1 [get_debug_cores dbg_hub]
+connect_debug_port dbg_hub/clk [get_nets bd_i/hbm/inst/TWO_STACK.u_hbm_top/APB_0_PCLK]
